@@ -82,8 +82,9 @@ public class AdminServiceImpl implements AdminService {
         //三、Optional.isPresent() 方法 (判读是否为空)  isPresent() 方法就是会返回一个 boolean 类型值，如果对象不为空则为true，如果为空则 false
         Admin admin3 = new Admin();
         admin3.setName("isPresent方法判断是否为空");
-        Optional.ofNullable(admin3).ifPresent(p -> p.setName(""));
-        log.info(new Date().getTime() + "-----optionald的ofNullable判断对象是否为空，操作函数：admin3:" );
+        boolean present1 = Optional.ofNullable(admin3).isPresent();
+        log.info(new Date().getTime() + "-----optionald的ofNullable判断对象是否为空，present1="+present1 );
+
 
 
         log.info("*********************************分割线*******************************************************");
