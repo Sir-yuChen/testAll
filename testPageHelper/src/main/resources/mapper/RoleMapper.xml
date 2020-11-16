@@ -72,4 +72,17 @@
     permissions
     from role
   </select>
+    <select id="selectByIds" resultMap="BaseResultMap">
+    select id, createdDate, lastModifiedDate, version, description, isSystem, `name`,
+        permissions
+    from role
+    <where>
+      <if test="longs!=null and longs.size > 0">
+        id IN
+        <foreach collection="longs" item="id" open="(" close=")" separator=",">
+          #{id}
+        </foreach>
+      </if>
+    </where>
+    </select>
 </mapper>
