@@ -16,10 +16,13 @@ public class BuilderTest {
         private String name = "1232";
     }
 
+
+
     @Test
     public void test() {
         Builder builder = Builder.builder().build();
         System.out.println(builder.getName());
     }
+
 
 }
