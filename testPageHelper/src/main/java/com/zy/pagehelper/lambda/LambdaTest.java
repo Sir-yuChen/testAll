@@ -1,9 +1,14 @@
 package com.zy.pagehelper.lambda;
 
+import com.zy.pagehelper.Interface.PersonCreatorBlankConstruct;
+import com.zy.pagehelper.Interface.PersonCreatorParamContruct;
+import com.zy.pagehelper.Interface.ReturnOneParam;
+import com.zy.pagehelper.model.Person;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -95,7 +100,6 @@ public class LambdaTest {
          *语法格式四、
          *  两个参数，有返回值，但是只有一条语句:　大括号省略，return省略
          */
-        //运行流程，运行过程？？？？？？？？？？？？？？
         Comparator<Integer> com = (x,y) -> Integer.compare(x,y);//升序
         Integer[] nums = {4,2,8,1,5};
         Arrays.sort(nums,com);
@@ -110,6 +114,243 @@ public class LambdaTest {
      */
 
 
+
+    /**
+     * 在本节中,我们将看到lambda表达式如何影响我们编码的方式。
+     * 假设有一个玩家List ,程序员可以使用 for 语句 ("for 循环")来遍历,在Java SE 8中可以转换为另一种形式:
+     */
+    @Test
+    public void test5(){
+
+        String[] atp = {"Rafael Nadal", "Novak Djokovic",
+                "Stanislas Wawrinka",
+                "David Ferrer","Roger Federer",
+                "Andy Murray","Tomas Berdych",
+                "Juan Martin Del Potro"};
+        List<String> players =  Arrays.asList(atp);
+
+        // 以前的循环方式
+        for (String player : players) {
+            System.out.print(player + "; ");
+        }
+
+        // 使用 lambda 表达式以及函数操作(functional operation)
+        players.forEach((player) -> System.out.print(player + "; "));
+
+        // 在 Java 8 中使用双冒号操作符(double colon operator)
+        players.forEach(System.out::println);
+
+    }
+
+    /**
+     * Lambda实现Runnable接口
+     * Runnable 的 lambda表达式,使用块格式,将五行代码转换成单行语句
+     */
+    @Test
+    public  void test6() {
+        // 1.1使用匿名内部类
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Hello world !使用匿名内部类，开线程");
+            }
+        }).start();
+
+        // 1.2使用 lambda expression
+        new Thread(() -> System.out.println("Hello world !使用 lambda expression，开线程")).start();
+
+        // 2.1使用匿名内部类
+        Runnable race1 = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Hello world !使用匿名内部类，不开线程");
+            }
+        };
+
+        // 2.2使用 lambda expression
+        Runnable race2 = () -> System.out.println("Hello world !使用 lambda expression,不开线程");
+
+        // 直接调用 run 方法(没开新线程哦!)
+        race1.run();
+        race2.run();
+    }
+
+    /**
+     *Lambdas排序集合
+     * 在Java中,Comparator 类被用来排序集合。
+     * 在下面的例子中,我们将根据球员的 name, surname, name 长度 以及最后一个字母。
+     * 和前面的示例一样,先使用匿名内部类来排序,然后再使用lambda表达式精简我们的代码。
+     * 在第一个例子中,我们将根据name来排序list。
+     */
+    @Test
+    public void comparatorTest(){
+        String[] players = {"Rafael Nadal", "Novak Djokovic",
+                "Stanislas Wawrinka", "David Ferrer",
+                "Roger Federer", "Andy Murray",
+                "Tomas Berdych", "Juan Martin Del Potro",
+                "Richard Gasquet", "John Isner"};
+
+        // 1.1 使用匿名内部类根据 name 排序 players
+        Arrays.sort(players, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return (s1.compareTo(s2));
+            }
+        });
+        System.out.println("使用静态内部类排序结果:"+Arrays.toString(players));
+        System.out.println("-----------------------分割线-------------------------");
+
+        String[] players2 = {"Rafael Nadal", "Novak Djokovic",
+                "Stanislas Wawrinka", "David Ferrer",
+                "Roger Federer", "Andy Murray",
+                "Tomas Berdych", "Juan Martin Del Potro",
+                "Richard Gasquet", "John Isner"};
+
+        // 1.2 使用 lambda expression 排序 players
+        Comparator<String> sortByName = (String s1, String s2) -> (s1.compareTo(s2));
+        Arrays.sort(players2, sortByName);
+        System.out.println("使用lambda排序结果（方式一）:"+Arrays.toString(players2));
+        // 1.3 也可以采用如下形式:
+        Arrays.sort(players2, (String s1, String s2) -> (s1.compareTo(s2)));
+        System.out.println("使用lambda排序结果（方式二）:"+Arrays.toString(players2));
+
+
+        System.out.println("-----------------------分割线-------------------------");
+
+        String[] players3 = {"Rafael Nadal", "Novak Djokovic",
+                "Stanislas Wawrinka", "David Ferrer",
+                "Roger Federer", "Andy Murray",
+                "Tomas Berdych", "Juan Martin Del Potro",
+                "Richard Gasquet", "John Isner"};
+
+        // 1.1 使用匿名内部类根据 surname 排序 players
+        Arrays.sort(players3, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return (s1.substring(s1.indexOf(" ")).compareTo(s2.substring(s2.indexOf(" "))));
+            }
+        });
+        System.out.println("匿名内部类根据 surname 排序:"+Arrays.toString(players3));
+
+        // 1.2 使用 lambda expression 排序,根据 surname
+        Comparator<String> sortBySurname = (String s1, String s2) ->
+                ( s1.substring(s1.indexOf(" ")).compareTo( s2.substring(s2.indexOf(" ")) ) );
+        Arrays.sort(players3, sortBySurname);
+        System.out.println("根据 surname使用lambda排序结果（方式一）:"+Arrays.toString(players3));
+        // 1.3 或者这样,怀疑原作者是不是想错了,括号好多...
+        Arrays.sort(players3, (String s1, String s2) ->
+                ( s1.substring(s1.indexOf(" ")).compareTo( s2.substring(s2.indexOf(" ")) ) )
+        );
+
+        System.out.println("根据 surname使用lambda排序结果方式二）:"+Arrays.toString(players3));
+
+        // 2.1 使用匿名内部类根据 name lenght 排序 players
+        Arrays.sort(players, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return (s1.length() - s2.length());
+            }
+        });
+
+        // 2.2 使用 lambda expression 排序,根据 name lenght
+        Comparator<String> sortByNameLenght = (String s1, String s2) -> (s1.length() - s2.length());
+        Arrays.sort(players, sortByNameLenght);
+
+        // 2.3 or this
+        Arrays.sort(players, (String s1, String s2) -> (s1.length() - s2.length()));
+
+        // 3.1 使用匿名内部类排序 players, 根据最后一个字母
+        Arrays.sort(players, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return (s1.charAt(s1.length() - 1) - s2.charAt(s2.length() - 1));
+            }
+        });
+
+        // 3.2 使用 lambda expression 排序,根据最后一个字母
+        Comparator<String> sortByLastLetter =
+                (String s1, String s2) ->
+                        (s1.charAt(s1.length() - 1) - s2.charAt(s2.length() - 1));
+        Arrays.sort(players, sortByLastLetter);
+
+        // 3.3 or this
+        Arrays.sort(players, (String s1, String s2) -> (s1.charAt(s1.length() - 1) - s2.charAt(s2.length() - 1)));
+
+    }
+    /**
+      1. lambda 表达式创建线程
+     我们以往都是通过创建 Thread 对象，然后通过匿名内部类重写 run() 方法，一提到匿名内部类我们就应该想到可以使用 lambda 表达式来简化线程的创建过程。
+
+     */
+    @Test
+    public void test7(){
+        Thread t = new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+                System.out.println(2 + ":" + i);
+            }
+        });
+        t.start();
+    }
+
+
+    /**
+     *lambda 表达式引用方法
+     * 有时候我们不是必须要自己重写某个匿名内部类的方法，我们可以可以利用 lambda表达式的接口快速指向一个已经被实现的方法。
+     *
+     * 语法
+     *
+     * ​ 方法归属者::方法名 静态方法的归属者为类名，普通方法归属者为对象
+     */
+    public static void main(String[] args) {
+        ReturnOneParam lambda1 = a -> doubleNum(a);
+        System.out.println(lambda1.method(3));
+
+        //lambda2 引用了已经实现的 doubleNum 方法
+        ReturnOneParam lambda2 = LambdaTest::doubleNum;
+        System.out.println(lambda2.method(3));
+
+        LambdaTest exe = new LambdaTest();
+
+        //lambda4 引用了已经实现的 addTwo 方法
+        ReturnOneParam lambda4 = exe::addTwo;
+        System.out.println(lambda4.method(2));
+
+    }
+
+    /**
+     * 要求
+     * 1.参数数量和类型要与接口中定义的一致
+     * 2.返回值类型要与接口中定义的一致
+     */
+    public static int doubleNum(int a) {
+        return a * 2;
+    }
+
+    public int addTwo(int a) {
+        return a + 2;
+    }
+
+
+    /**
+     *构造方法的引用
+     * 一般我们需要声明接口，该接口作为对象的生成器，通过 类名::new 的方式来实例化对象，然后调用方法返回对象。
+     * 该接口作为对象的生成器---->创建一个无参构造器，
+     * 该接口作为对象的生成器---->创建一个有参构造器，
+     */
+    @Test
+    public  void test9() {
+        /**
+         *1.lambda表达式创建对象，返回无参函数接口，生参无参对象
+         */
+        PersonCreatorBlankConstruct creator = () -> new Person();
+        Person person = creator.getPerson();
+
+        PersonCreatorBlankConstruct creator2 = Person::new;
+        Person person1 = creator2.getPerson();
+
+        PersonCreatorParamContruct creator3 = Person::new;
+        Person person2 = creator3.getPerson("名称", "修改名称","职位","男",23,2000);
+    }
 
 
 
