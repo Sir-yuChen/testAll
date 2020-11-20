@@ -162,6 +162,7 @@ public class LambdaTest {
         // 2.1使用匿名内部类
         Runnable race1 = new Runnable() {
             @Override
+
             public void run() {
                 System.out.println("Hello world !使用匿名内部类，不开线程");
             }
@@ -340,7 +341,7 @@ public class LambdaTest {
     @Test
     public  void test9() {
         /**
-         *1.lambda表达式创建对象，返回无参函数接口，生参无参对象
+         *1.lambda表达式创建对象，返回无参函数接口，生成无参对象
          */
         PersonCreatorBlankConstruct creator = () -> new Person();
         Person person = creator.getPerson();
@@ -350,6 +351,16 @@ public class LambdaTest {
 
         PersonCreatorParamContruct creator3 = Person::new;
         Person person2 = creator3.getPerson("名称", "修改名称","职位","男",23,2000);
+
+        String str = "_ga=GA1.3.626751450.1603845434; d=oa; u=NwAwAGQANgA4ADkAOABiAC0AMgA4ADMANAAtADQAMgBkADIALQA5ADkANQBlAC0AYgBkADAAMABjAGIANwAwAGMANQA4AGQAfAAyADAAMgAwADEAMAAyADkAMAA4ADMAOAAxADkAfABiADcAOQA0ADYAYwA3ADgALQA0AGMAOAA1AC0ANAA4AGYAOAAtADgAYQBmAGUALQAyADUANABmAGEAZgAyAGYAYQA2ADAAYwB8ADgAMABjAGMAOQBiAGEAZgAzAGEANwA3ADIANAAzAGIANwAwADQAYgBlAGYANwA5ADQAMwA3ADgAMgBhAGQAOAA=; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%22175bfa4cdcf7bf-060299c2607ef2-5437971-250125-175bfa4cdd0700%22%2C%22first_id%22%3A%22%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%7D%2C%22%24device_id%22%3A%22175bfa4cdcf7bf-060299c2607ef2-5437971-250125-175bfa4cdd0700%22%7D; ag_fid=IjkTBJxaaRuauZFF; sessionId=61829dbcde8b4b1ba2f2862c4de0e911v9zdQY; _gid=GA1.3.668217704.1605486104; _gat=1; JSESSIONID=50b1d136-9442-4a64-8053-686f6a032732";
+
+        List<String> strings = Arrays.asList(str.split(";"));
+      //  strings.forEach(System.out::println);
+
+        Consumer<String> con = x -> Arrays.asList(x.split(";")).forEach(System.out::println);
+        con.accept(str);
+
+
     }
 
 
