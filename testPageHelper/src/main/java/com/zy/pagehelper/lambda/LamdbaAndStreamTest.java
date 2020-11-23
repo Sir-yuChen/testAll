@@ -57,13 +57,17 @@ public class LamdbaAndStreamTest {
         }
     };
 
-
-
     @Test
-    public void test1(){
-        //2. 使用forEach方法来迭代输出上述列表
+    public  void test1(){
+
+        /* 1. 使用forEach方法来迭代输出集合中所有的程序员的名字
+         *  注意：1. System.out.printf()表达式
+         *          第一个%s代表的是第一个变量p.getFirstName(),中间的使用空格拼接.第二个百分号代表的是 p.getLastName(),\n则是换行
+         *       2. 普通输出语句是println,而使用这种表达式的是printf,注意区分.
+         *       3. 一个%s代表一个变量
+         */
         System.out.println("使用forEach方法来迭代输出-->所有程序员的姓名:");
-        javaProgrammers.forEach((p) -> System.out.printf("%s %s; ", p.getFirstName(), p.getLastName()));
+        javaProgrammers.forEach((p) -> System.out.printf("JAVA程序员 ： %s %s; \n", p.getFirstName(), p.getLastName()));
         phpProgrammers.forEach((p) -> System.out.printf("%s %s; ", p.getFirstName(), p.getLastName()));
 
         //3.同样使用forEach方法,增加程序员的工资5%
@@ -72,6 +76,11 @@ public class LamdbaAndStreamTest {
 
         javaProgrammers.forEach(giveRaise);
         phpProgrammers.forEach(giveRaise);
+
+    }
+
+    @Test
+    public void testFiltersAndLimit(){
 
         //3. 定义过滤器,然后重用它们来执行其他操作
         // 定义 filters
