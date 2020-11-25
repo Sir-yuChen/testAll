@@ -8,11 +8,10 @@
 		<version>2.3.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.zy.pageHelper</groupId>
-	<artifactId>testPageHelper</artifactId>
+	<groupId>com.zy</groupId>
+	<artifactId>stream</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>testPageHelper</name>
-
+	<name>stream</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -51,34 +50,37 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!--generator-->
 		<dependency>
-			<groupId>org.mybatis.generator</groupId>
-			<artifactId>mybatis-generator-core</artifactId>
-			<version>1.3.5</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
+
 		<!-- fastjson -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.62</version>
 		</dependency>
-		<!--pageHelper-->
+
+
 		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper-spring-boot-starter</artifactId>
-			<version>1.2.3</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-        </dependency>
     </dependencies>
-
 
 	<build>
 		<plugins>
@@ -86,43 +88,38 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!--添加mybatis generator maven插件-->
-			<plugin>
-				<groupId>org.mybatis.generator</groupId>
-				<artifactId>mybatis-generator-maven-plugin</artifactId>
-				<version>1.3.5</version>
-				<configuration>
-					<!--generatorConfig.xml位置-->
-					<configurationFile>src/main/resources/mybatis-generator/generatorConfig.xml</configurationFile>
-					<verbose>true</verbose>
-					<overwrite>true</overwrite>
-				</configuration>
-				<executions>
-					<execution>
-						<id>Generate MyBatis Artifacts</id>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<phase>generate-sources</phase>
-					</execution>
-				</executions>
-				<!--此处必须添加mysql驱动包-->
-				<dependencies>
-					<dependency>
-						<groupId>mysql</groupId>
-						<artifactId>mysql-connector-java</artifactId>
-						<scope>runtime</scope>
-						<version>8.0.20</version>
-					</dependency>
-					<!-- 通用mapper依赖  假如需要使用通用mapper，放开注释 -->
-					<!--<dependency>
-                        <groupId>tk.mybatis</groupId>
-                        <artifactId>mapper</artifactId>
-                        <version>4.1.5</version>
-                    </dependency>-->
-				</dependencies>
-			</plugin>
 		</plugins>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>
