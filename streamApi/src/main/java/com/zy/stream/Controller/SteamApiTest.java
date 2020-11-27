@@ -318,6 +318,8 @@ public class SteamApiTest {
                         .collect(Collectors.toMap(Person::getAge,person -> person,(key1, key2) -> key1))  //value 为对象 student -> student jdk1.8返回当前对象,也可以为对象的属性
                         .forEach((key, value) -> System.out.println("key--"+key+"   value--"+value.toString()));
 
+
+
     }
 
 
