@@ -38,9 +38,6 @@ public class LambdaTest {
      *      右侧: Lambda表达式中所需要执行的功能(Lambda体)，对应的是对抽象方法的实现；(函数式接口(只能有一个抽象方法))
      * 2. Lambda表达式的实质是　对接口的实现；
      *
-     * @author zhangyu
-     * @date 2020/11/17 17:04
-     * @return void
      */
 
 
