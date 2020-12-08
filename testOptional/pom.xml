@@ -54,8 +54,6 @@
             <optional>true</optional>
             <scope>true</scope>
         </dependency>
-
-
     </dependencies>
 
     <build>
